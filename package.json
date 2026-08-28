@@ -1,0 +1,15 @@
+{
+  "name": "portal-autorizacion-estudios",
+  "version": "0.1.0",
+  "description": "Demo Contoso - Portal de Autorizacion de Estudios de Imagen (Tech Day).",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "lodash": "4.17.11"
+  }
+}

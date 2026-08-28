@@ -1,0 +1,36 @@
+# Pipeline de ejemplo para Azure DevOps (ADO) - idea -> produccion
+# Sesion: "ADO + GitHub Copilot". Muestra el ciclo completo con Copilot generando el YAML.
+
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+  - stage: Build
+    jobs:
+      - job: build_test
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '20.x'
+          - script: npm install
+            displayName: 'Instalar dependencias'
+          - script: npm test
+            displayName: 'Ejecutar pruebas'
+
+  - stage: Deploy
+    dependsOn: Build
+    condition: succeeded()
+    jobs:
+      - deployment: deploy_webapp
+        environment: 'produccion'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: echo "Desplegando a Azure App Service (placeholder)"
+                  displayName: 'Deploy (demo)'
