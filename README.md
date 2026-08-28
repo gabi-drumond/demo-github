@@ -7,7 +7,7 @@ que sirve a las **tres sesiones de GitHub** del día:
 | Sesión | Qué se muestra aquí |
 |--------|---------------------|
 | **GitHub Enterprise + Advanced Security** (DevSecOps) | `code scanning` con CodeQL detecta XSS y command injection; `Dependabot` alerta la dependencia vulnerable; `secret scanning`/push protection con `.env.example`. |
-| **GitHub Copilot + App Modernization** | Copilot moderniza el estilo *legacy* (callbacks + `var`) a `async/await`, agrega validación y genera pruebas. |
+| **GitHub Copilot + App Modernization** | El agente **Upgrade** analiza la deuda de dependencias, genera un plan revisable, remedia `lodash` y valida el resultado con pruebas. |
 | **ADO + GitHub Copilot** | `azure-pipelines.yml` + workflows de Actions: ciclo idea → producción, con Copilot generando el pipeline. |
 
 > ⚠️ Contiene vulnerabilidades **intencionales y rotuladas** para la demo. No usar en producción.

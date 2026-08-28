@@ -19,17 +19,25 @@ Objetivo: seguridad de código como parte del flujo, no un paso aparte.
    (ver `.env.example`) y mostrar cómo GitHub bloquea el push.
 6. (1 min) Cierre: "seguridad desplazada a la izquierda, dentro del PR".
 
-## Sesión 2 (11:40–11:55) — GitHub Copilot + App Modernization
-Objetivo: Copilot como *peer programmer* que acelera y moderniza.
+## Sesión 2 (parte del bloque 11:05–11:45) — GitHub Copilot + App Modernization
+Objetivo: mostrar **GitHub Copilot upgrade** como un proceso gobernado de modernización.
 
-1. (2 min) Abrir `src/legacy/reportGenerator.js` (callback hell + `var`).
-2. (4 min) Copilot Chat: **"moderniza este archivo a async/await, con const/let y manejo de
-   errores"**. Revisar el resultado.
-3. (3 min) **"agrega validación de entrada a las rutas de `server.js`"**.
-4. (3 min) **"genera casos de prueba para `buscarEstudio`, incluyendo id inexistente"** → correr `npm test`.
-5. (2 min) Mostrar `/explain` sobre una función y las **custom instructions**
-   (`.github/copilot-instructions.md`, respuestas en español + foco en seguridad).
-6. (1 min) Cierre: menos trabajo repetitivo, más foco en el negocio.
+1. (2 min) Abrir Copilot Chat y seleccionar el agente **Upgrade**. Conectar con la Sesión 1:
+   Dependabot encontró `lodash 4.17.11`; ahora convertiremos el hallazgo en un plan ejecutable.
+2. (3 min) Pedir el assessment sin autorizar cambios todavía:
+   **"Moderniza las dependencias de este proyecto JavaScript. Prioriza corregir lodash 4.17.11,
+   conserva el comportamiento de la API Express y primero presenta el assessment y el plan;
+   no ejecutes cambios hasta que yo los apruebe."**
+3. (2 min) Revisar el inventario, la ruta de actualización y las tareas propuestas. Mostrar que
+   cada tarea se puede aprobar, editar o excluir antes de modificar el repositorio.
+4. (4 min) Aprobar la actualización necesaria. Revisar el diff de `package.json` y
+   `package-lock.json` y, si se genera, la trazabilidad bajo `.github/upgrades/`.
+5. (1 min) Ejecutar `npm test` y confirmar 2/2 pruebas en verde. Ejecutar `npm audit` para
+   comprobar que el riesgo de lodash fue remediado o reducido.
+6. (1 min) Cierre: modernizar es evaluar → planificar → aprobar → transformar → validar.
+
+**Plan B:** llevar capturas del assessment y del diff. Si la extensión tarda, mostrar el plan
+ya generado y ejecutar solamente la validación.
 
 ## Sesión 3 (11:55–12:10) — ADO + GitHub Copilot
 Objetivo: ciclo completo idea → producción.
