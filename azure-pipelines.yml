@@ -1,5 +1,8 @@
-# Pipeline de ejemplo para Azure DevOps (ADO) - idea -> produccion
-# Sesion: "ADO + GitHub Copilot". Muestra el ciclo completo con Copilot generando el YAML.
+# Pipeline de ejemplo para Azure DevOps (ADO) - idea -> produccion (.NET)
+# Sesion "ADO + GitHub Copilot": Copilot genera el YAML y agrega, en vivo, un
+# stage de analisis de seguridad (CodeQL) ANTES del Deploy.
+# El gate de aprobacion manual se configura en el environment 'produccion' de ADO
+# (Environments -> Approvals and checks), no en este archivo.
 
 trigger:
   branches:
@@ -9,18 +12,28 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  buildConfiguration: 'Release'
+
 stages:
   - stage: Build
     jobs:
       - job: build_test
         steps:
-          - task: NodeTool@0
+          - task: UseDotNet@2
             inputs:
-              versionSpec: '20.x'
-          - script: npm install
-            displayName: 'Instalar dependencias'
-          - script: npm test
+              packageType: 'sdk'
+              version: '8.0.x'
+          - script: dotnet restore PortalAutorizacion.sln
+            displayName: 'Restaurar dependencias'
+          - script: dotnet build PortalAutorizacion.sln --no-restore -c $(buildConfiguration)
+            displayName: 'Compilar'
+          - script: dotnet test PortalAutorizacion.sln --no-build -c $(buildConfiguration)
             displayName: 'Ejecutar pruebas'
+          - script: dotnet publish src/PortalAutorizacion/PortalAutorizacion.csproj -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)
+            displayName: 'Publicar'
+          - publish: $(Build.ArtifactStagingDirectory)
+            artifact: webapp
 
   - stage: Deploy
     dependsOn: Build

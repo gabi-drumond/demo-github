@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <!-- DEMO Tech Day: se targetea .NET 8 a proposito. La extension GitHub Copilot
+         app modernization propondra el upgrade a la ultima version de .NET. -->
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Dependencia intencionalmente vulnerable (CVE-2024-21907) para la demo de
+         Dependabot / Advanced Security. La extension de modernizacion la actualiza. -->
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+</Project>

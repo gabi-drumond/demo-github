@@ -10,7 +10,7 @@ on:
 
 jobs:
   analyze:
-    name: Analyze (JavaScript)
+    name: Analyze (C#)
     runs-on: ubuntu-latest
     permissions:
       security-events: write
@@ -23,7 +23,10 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: javascript
+          languages: csharp
+          build-mode: none
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:csharp"

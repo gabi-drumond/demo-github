@@ -11,8 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-dotnet@v4
         with:
-          node-version: '20'
-      - run: npm install
-      - run: npm test
+          dotnet-version: '8.0.x'
+      - run: dotnet restore PortalAutorizacion.sln
+      - run: dotnet build PortalAutorizacion.sln --no-restore --configuration Release
+      - run: dotnet test PortalAutorizacion.sln --no-build --configuration Release
