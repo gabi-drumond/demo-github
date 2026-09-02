@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Mvc;
 using PortalAutorizacion.Services;
 
@@ -31,16 +31,8 @@ public class EstudiosController : ControllerBase
     [HttpGet("reporte")]
     public IActionResult Reporte([FromQuery] string nombre)
     {
-        var psi = new ProcessStartInfo
-        {
-            FileName = "cmd.exe",
-            Arguments = "/c echo Generando reporte para " + nombre,
-            RedirectStandardOutput = true,
-            UseShellExecute = false
-        };
-        using var proceso = Process.Start(psi);
-        var salida = proceso.StandardOutput.ReadToEnd();
-        proceso.WaitForExit();
+        var nombreSeguro = HtmlEncoder.Default.Encode(nombre ?? string.Empty);
+        var salida = $"Generando reporte para {nombreSeguro}";
         return Ok(salida);
     }
 
