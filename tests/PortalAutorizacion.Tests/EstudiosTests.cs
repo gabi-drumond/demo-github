@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using PortalAutorizacion.Controllers;
 using PortalAutorizacion.Services;
 using Xunit;
 
@@ -37,5 +39,16 @@ public class EstudiosTests
         var estudio = servicio.BuscarEstudio("9999");
 
         Assert.Null(estudio);
+    }
+
+    [Fact]
+    public void Reporte_CodificaEntradaHtml()
+    {
+        var controller = new EstudiosController(CrearServicio());
+
+        var resultado = controller.Reporte("<script>alert(1)</script>");
+
+        var ok = Assert.IsType<OkObjectResult>(resultado);
+        Assert.Equal("Generando reporte para &lt;script&gt;alert(1)&lt;/script&gt;", ok.Value);
     }
 }
